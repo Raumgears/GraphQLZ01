@@ -11,11 +11,16 @@ export async function graphQLFetch(JWT) {
             totalUp
             totalDown
             xpTotal: transactions_aggregate(
+                order_by: {createdAt: asc}
                 where: {type:  {_eq: "xp"}, eventId:{_eq: 303}}){
                     aggregate{
                         sum {
                             amount
                         }
+                    }
+                    nodes {
+                        amount
+                        createdAt
                     }
             }
             skills: transactions( 
@@ -25,24 +30,31 @@ export async function graphQLFetch(JWT) {
                     type
                     amount
             }
-            events(
-                where: {eventId: {_eq: 303}}) {
-                    level
-            }
             xp: transactions(
-                order_by: {createdAt: asc}
-                where: {type: {_eq: "xp"}, eventId: {_eq: 303}}) {
+                order_by: {createdAt: desc}
+                where: {type: {_eq: "xp"}, eventId: {_eq: 303}}
+                limit: 10 ) {
+                    id
                     createdAt
                     amount
                     path
             }
-            finished_projects: groups(
-                where: {group: {status: {_eq: finished}}}) {
-                    group {
-                        path
-                        status
-                        createdAt
-                    }
+            audits(
+              	order_by: {createdAt: desc}
+              	where: {
+                    _or: [
+                      { closureType: { _in: [succeeded, failed] } },
+                      { closureType: { _is_null: true }}]}) {
+    		    id
+                closureType
+                private {
+                    code
+                }
+                group{
+                    status
+                    captainLogin
+                    path
+                }
             }
         }
     }`

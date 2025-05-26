@@ -27,4 +27,4 @@ Tableau de bord interactif présentant les statistiques académiques via GraphQL
 ## Utilisation
 
 Accédez à la plateforme déployée :
-[https://votre-profil.netlify.app](https://votre-profil.netlify.app)
+[https://graph-ql-self.vercel.app/](https://graph-ql-self.vercel.app/)

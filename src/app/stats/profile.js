@@ -8,11 +8,22 @@ export default function Profile(data) {
     const campus = data.profile.campus
 
     return (
-        <div>
-            <h1>Welcome back {login}</h1>
-            <p><strong>Name : </strong>{fn} {ln}</p>
-            <p><strong>Email : </strong>{email}</p>
-            <p><strong>Studying at campus : </strong>{campus}</p>
+        <div className="bg-white p-6 rounded-xl shadow-lg mb-8">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome back {login}!</h1>
+            <div className="space-y-2">
+            <p className="flex gap-2">
+                <span className="font-medium text-gray-600">Name:</span>
+                <span className="text-gray-800">{fn} {ln}</span>
+            </p>
+            <p className="flex gap-2">
+                <span className="font-medium text-gray-600">Email:</span>
+                <span className="text-gray-800 break-all">{email}</span>
+            </p>
+            <p className="flex gap-2">
+                <span className="font-medium text-gray-600">Campus:</span>
+                <span className="text-gray-800">{campus}</span>
+            </p>
+            </div>
         </div>
     )
 }

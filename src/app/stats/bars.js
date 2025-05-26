@@ -48,7 +48,7 @@ export default function AuditRatioBar(data) {
             g.appendChild(valueLabel)
         }
 
-        createHorizontalBar(totalUp, 0, '#10b981')
+        createHorizontalBar(totalUp, 0, '#0063F9')
         createHorizontalBar(totalDown, barHeight + gap, '#ef4444')
 
         const ratioLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text')
@@ -70,5 +70,24 @@ export default function AuditRatioBar(data) {
         )
     }
 
-    return <svg ref={svgRef} width="600" height="150" />
+    return (
+        <div className="bg-white p-6 rounded-xl shadow-lg mb-8">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Audit Ratio</h3>
+            <svg 
+            ref={svgRef} 
+            className="w-full h-[150px]"
+            viewBox="0 0 600 150"
+            />
+            <div className="mt-4 flex gap-4 text-sm">
+            <div className="flex items-center">
+                <div className="w-3 h-3 bg-[#0063F9] mr-2"></div>
+                <span>Given</span>
+            </div>
+            <div className="flex items-center">
+                <div className="w-3 h-3 bg-red-500 mr-2"></div>
+                <span>Received</span>
+            </div>
+            </div>
+        </div>
+    )
 }

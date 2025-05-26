@@ -2,7 +2,7 @@
 
 import { useState ,useEffect } from "react"
 import { useRouter } from "next/navigation.js"
-import Header from "./header.js"
+import LogOut from "./logout.js"
 import { graphQLFetch } from "@/src/fetch/graphQL.js"
 import AuditRatioBar from "./bars.js"
 import Profile from "./profile.js"
@@ -21,7 +21,6 @@ export default function Stats() {
         }
         graphQLFetch(JWT).then(fetchedData => {
             setData(fetchedData)
-            console.log(fetchedData)
         }).catch(error => {
             console.error('Erreur fetch :', error)
         })
@@ -31,7 +30,7 @@ export default function Stats() {
     if (loading) {
         return (
             <div>
-                <Header />
+                <LogOut />
                 <div className="text-center py-8">Loading...</div>
             </div>
         )
@@ -40,20 +39,26 @@ export default function Stats() {
     if (!data) {
         return (
             <div>
-                <Header />
+                <LogOut />
                 <div className="text-center py-8">No data available</div>
             </div>
         )
     }
 
     return (
-        <div>
-            <Header />
-            <Profile profile={data.data.user[0]} />
-            <Audits audits={data.data.user[0].audits}/>
-            <Xp xp={data.data.user[0].xp} />
-            <AuditRatioBar bars={data.data.user[0]} />
-            <SkillGraph skills={data.data.user[0].skills} />
+        <div className="w-screen h-screen grid bg-[#212529] p-5 overflow-y-auto">
+            <div className="min-h-screen p-8">
+                <LogOut />
+                <div className="max-w-7xl mx-auto space-y-8">
+                    <Profile profile={data.data.user[0]} />
+                
+                    <Audits audits={data.data.user[0].audits} />
+                    <Xp xp={data.data.user[0].xp} />
+
+                    <AuditRatioBar bars={data.data.user[0]} />
+                    <SkillGraph skills={data.data.user[0].skills} />
+                </div>
+            </div>
         </div>
     )
 }

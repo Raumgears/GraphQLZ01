@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# School Profile Analytics with GraphQL
 
-## Getting Started
+Tableau de bord interactif présentant les statistiques académiques via GraphQL avec visualisation SVG et authentification sécurisée.
 
-First, run the development server:
+![Aperçu du Projet](./public/preview.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Fonctionnalités Clés
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔐 **Authentification Sécurisée**
+- Connexion par email/nom d'utilisateur
+- Gestion des tokens JWT
+- Messages d'erreur contextuels
+- Déconnexion possible
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+📈 **Visualisations Dynamiques**
+- Section profil personnel (XP, compétences, audits)
+- Graphiques SVG interactifs :
+  - Comparatif audits validés/rejetés
+  - Répartition des compétences
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+⚡ **Intégration GraphQL**
+- Requêtes optimisées en temps réel
+- Récupération de données imbriquées
+- Système de cache intelligent
+- Gestion des erreurs API
 
-## Learn More
+## Utilisation
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Accédez à la plateforme déployée :
+[https://votre-profil.netlify.app](https://votre-profil.netlify.app)

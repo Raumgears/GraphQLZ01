@@ -22,8 +22,7 @@ export default function SkillGraph(data) {
     )
 
     const getCoordinates = (amount, angle) => {
-        const maxValue = Math.max(...skillSorted.map(s => s.amount)) || 1
-        const scaledValue = (amount / maxValue) * radius
+        const scaledValue = (amount / 100) * radius
         return {
             x: center + scaledValue * Math.cos(angle),
             y: center + scaledValue * Math.sin(angle)
@@ -43,79 +42,60 @@ export default function SkillGraph(data) {
     }
 
     return (
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            {/* Grille de fond */}
-            {[0.2, 0.4, 0.6, 0.8, 1].map(level => (
-                <polygon
-                    key={level}
-                    points={angles.map(angle => {
-                        const x = center + radius * level * Math.cos(angle)
-                        const y = center + radius * level * Math.sin(angle)
-                        return `${x},${y}`
-                    }).join(' ')}
-                    fill="none"
-                    stroke="#eee"
-                />
-            ))}
+        <div className="bg-white p-6 rounded-xl shadow-lg">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Best Skills Distribution</h3>
+            <div className="mx-auto max-w-[500px]">
+                <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+                    {[0.2, 0.4, 0.6, 0.8, 1].map(level => (
+                        <polygon
+                            key={level}
+                            points={angles.map(angle => {
+                                const x = center + radius * level * Math.cos(angle)
+                                const y = center + radius * level * Math.sin(angle)
+                                return `${x},${y}`
+                            }).join(' ')}
+                            fill="none"
+                            stroke="#eee"
+                        />
+                    ))}
 
-            {/* Axes */}
-            {angles.map((angle, i) => {
-                const { x, y } = getCoordinates(skillSorted[i].amount, angle)
-                return (
-                    <line
-                        key={i}
-                        x1={center}
-                        y1={center}
-                        x2={x}
-                        y2={y}
-                        stroke="#ccc"
+                    {angles.map((angle, i) => {
+                        const { x, y } = getCoordinates(100, angle)
+                        return (
+                            <line
+                                key={i}
+                                x1={center}
+                                y1={center}
+                                x2={x}
+                                y2={y}
+                                stroke="#ccc"
+                            />
+                        )
+                    })}
+                    {skillSorted.map((skill, i) => {
+                        const { x, y } = getCoordinates(105, angles[i])
+                        return (
+                            <text
+                                key={skill.type}
+                                x={x}
+                                y={y}
+                                textAnchor={x > center ? 'start' : x < center ? 'end' : 'middle'}
+                                dominantBaseline="middle"
+                                fontSize="12"
+                            >
+                                {skill.type}
+                            </text>
+                        )
+                    })}
+
+                    <path
+                        d={generatePath()}
+                        fill="rgba(0, 99, 249, 0.3)"
+                        stroke="rgb(0, 99, 249"
+                        strokeWidth="2"
                     />
-                )
-            })}
-
-            <path
-                d={generatePath()}
-                fill="rgba(100, 150, 250, 0.3)"
-                stroke="rgb(100, 150, 250)"
-                strokeWidth="2"
-            />
-            {skillSorted.map((skill, i) => {
-                const { x, y } = getCoordinates(skill.amount * 1.1, angles[i])
-                return (
-                    <text
-                        key={skill.type}
-                        x={x}
-                        y={y}
-                        textAnchor={x > center ? 'start' : x < center ? 'end' : 'middle'}
-                        dominantBaseline="middle"
-                        fontSize="12"
-                    >
-                        {skill.type}
-                    </text>
-                )
-            })}
-        </svg>
+                </svg>
+            </div>
+        </div>
     )
 }
-  /*   const allSum = data.points.aggregate.sum.amount
-    const allPoint = data.points.nodes
-    let curSum = 0
-
-    const epoch = Number(new Date(allPoint[0].createdAt))
-    const maxTime = Number(Date.now()) - epoch
-
-    let pathString = "M 0 500 "
-
-    allPoint.forEach( point => {  
-        curSum += point.amount
-        let corX = ((Number(new Date(point.createdAt)) - epoch) / maxTime).toFixed(3) * 700
-        let corY = 500 - Number(curSum / allSum).toFixed(3) * 500
-        pathString += `H ${corX} V ${corY} `
-    })
-    pathString += `H 700`
-
-    return (
-        <svg viewBox="0 0 705 505">
-            <path d={pathString} fill="transparent" stroke="blue" strokeWidth="1px"/>
-        </svg>
-    ) */
